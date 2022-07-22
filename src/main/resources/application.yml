@@ -1,0 +1,116 @@
+yml:
+  user:
+    name: "null"
+server:
+  port: 8081
+logging:
+  level:
+    #slf4j
+    com.example.demo: debug
+    #logbook
+#    org.zalando.logbook: TRACE
+logbook:
+  format:
+    style: curl
+#测试map-list注入数据
+people:
+  name: ${server.port:hi}
+  age: 11
+  address:
+    - 北京
+    - 上海
+    - 广州
+  phone:
+    number: 1111111
+spring:
+  #  datasource:
+  #    driver-class-name: org.postgresql.Driver
+  #    url: jdbc:postgresql://localhost:5432/postgres
+  #    username: postgres
+  #    password: root123456
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.0.134:3306/demo?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true
+  #flyway配置
+  flyway:
+    # 启用或禁用 flyway
+    enabled: true
+    # flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉。这个默认值是 false 理论上作为默认配置是不科学的。
+    clean-disabled: true
+    # SQL 脚本的目录,多个路径使用逗号分隔 默认值 classpath:db/migration
+    locations: classpath:db/migration
+    #  metadata 版本控制信息表 默认 flyway_schema_history
+    table: flyway_schema_history
+    # 如果没有 flyway_schema_history 这个 metadata 表， 在执行 flyway migrate 命令之前, 必须先执行 flyway baseline 命令
+    # 设置为 true 后 flyway 将在需要 baseline 的时候, 自动执行一次 baseline。
+    baseline-on-migrate: true
+    # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略
+    baseline-version: 1
+    # 字符编码 默认 UTF-8
+    encoding: UTF-8
+    # 是否允许不按顺序迁移 开发建议 true  生产建议 false
+    out-of-order: false
+    # 需要 flyway 管控的 schema list,这里我们配置为flyway  缺省的话, 使用spring.datasource.url 配置的那个 schema,
+    # 可以指定多个schema, 但仅会在第一个schema下建立 metadata 表, 也仅在第一个schema应用migration sql 脚本.
+    # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
+    #    schemas: flyway
+    # 执行迁移时是否自动调用验证   当你的版本不符合逻辑比如你先执行了DML而没有对应的DDL会抛出异常
+    validate-on-migrate: true
+  application:
+    name: sub-demo
+  mvc:
+    view:
+      suffix: .html
+  profiles:
+    active: dev
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+#mybatis-plus:
+#  configuration:
+#    cache-enabled: false
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: "null"
+      logic-not-delete-value: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+app: 123
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    accessToken:
+    executor:
+      appname: xxl-job-executor-sample
+      address:
+      ip:
+      port: 8888
+      logpath: /data/applogs/xxl-job/jobhandler
+      logretentiondays: 30
+
+yeecode:
+  objectLogger:
+    serverAddress: http://127.0.0.1:12301
+    businessAppName: demo
+    #设置为true所有属性都会记录
+    #设置为false只记录加了LogTag注解的字段
+    autoLogAttributes: false

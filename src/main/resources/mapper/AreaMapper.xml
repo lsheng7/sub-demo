@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.subdemo.mbp.mapper.AreaMapper">
+    <!--  <select id="selectAreaPoByCompanyNameAndId" resultType="java.util.Map">-->
+    <!--    select coalesce(company ->> 'id' ,'1')as idName, coalesce(company ->> 'name','1') as name-->
+    <!--    from area_po-->
+    <!--    group by company ->> 'id', company ->> 'name'-->
+    <!--    order by company ->> 'name' asc;-->
+    <!--  </select>-->
+
+    <!--  <select id="selectAreaList" resultType="map">-->
+    <!--    <if test="qc.limit!=null and offset!=null">-->
+    <!--     select * from (-->
+    <!--    </if>-->
+    <!--    select * from area_po-->
+    <!--       <where>-->
+    <!--         <if test="qc.id!=null and qc.id!=''">-->
+    <!--           and company ->> 'id'=#{qc.id}-->
+    <!--         </if>-->
+    <!--         <if test="qc.name!=null and qc.name!=''">-->
+    <!--           and company ->> 'name'=#{qc.name}-->
+    <!--         </if>-->
+    <!--         <if test="nameList!=null and nameList.size()>0">-->
+    <!--           and name in (-->
+    <!--           <foreach collection="nameList" item="name" separator=",">-->
+    <!--             #{name}-->
+    <!--           </foreach>-->
+    <!--           )-->
+    <!--         </if>-->
+    <!--       </where>-->
+    <!--    <if test="qc.limit!=null and offset!=null">-->
+    <!--      )a limit ${qc.limit}*5 offset #{offset};-->
+    <!--    </if>-->
+    <!--  </select>-->
+    <insert id="callProcedure">
+      call addProcess()
+    </insert>
+</mapper>
