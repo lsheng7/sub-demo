@@ -6,11 +6,15 @@ spring:
     host: mail.o-trial.com
     username: postmaster@o-trial.com
     password: Qr@77.88
-    port: 44465
+    port: 587
     properties:
       mail:
         smtp:
-          ssl:
-            enable: false
-            required: false
+          # 以下2行配置解决: Failed messages: com.sun.mail.smtp.SMTPSendFailedException: 530 5.7.0 Must issue a STARTTLS command first
+          starttls.enable: true
+          ssl.trust: mail.o-trial.com
         debug: true
+#          auth: true
+#          ssl:
+#            enable: false
+#            required: false
