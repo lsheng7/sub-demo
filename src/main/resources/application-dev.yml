@@ -1,2 +1,16 @@
 server:
   port: 8088
+spring:
+  mail:
+    default-encoding: utf-8
+    host: mail.o-trial.com
+    username: postmaster@o-trial.com
+    password: Qr@77.88
+    port: 44465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: false
+            required: false
+        debug: true
