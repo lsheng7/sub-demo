@@ -14,7 +14,3 @@ spring:
           starttls.enable: true
           ssl.trust: mail.o-trial.com
         debug: true
-#          auth: true
-#          ssl:
-#            enable: false
-#            required: false
